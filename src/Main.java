@@ -6,21 +6,11 @@ public class Main {
     private static final Inventory inventory = new Inventory();
 
     public static void main(String[] args) {
-        while(true) {
-            try {
-                showMainMenu();
-            } catch (Exception e){
-                System.out.println(e.toString());
-            }
+        try {
+            showMainMenu();
+        } catch (Exception e){
+            System.out.println(e.toString());
         }
-    }
-
-    public static void addProduct() {
-        System.out.println("Ingrese nombre del producto: ");
-        String name_product = input.next();
-        System.out.println("Ingrese precio del producto: ");
-        double price_product = input.nextDouble();
-        inventory.setProduct( name_product, price_product );
     }
 
     public static void showMainMenu() {
@@ -45,11 +35,15 @@ public class Main {
         """);
         System.out.println("Seleccione una opción: ");
         option_main_menu = input.nextInt();
+        input.nextLine();
 
         switch (option_main_menu) {
             case 3:
                 showInventory();
+            case 4:
+                addProduct();
         }
+        return;
     }
 
     private static void showInventory(){
@@ -63,9 +57,30 @@ public class Main {
             current_index_price++;
         }
         System.out.println(list_inventory);
-        System.out.println("Pulse cualquier tecla para volver al menú pricipal");
+        System.out.println("Pulse 0 para volver al menú pricipal");
         input.nextInt();
-        return;
+        showMainMenu();
+    }
+
+    public static void addProduct() {
+
+        System.out.println("Ingrese nombre del producto: ");
+        String name_product = input.nextLine();
+        System.out.println("Ingrese precio del producto: ");
+        double price_product = input.nextDouble();
+        inventory.setProduct( name_product, price_product );
+
+        int option;
+        System.out.println("Producto añadido correctamente. pulse 1 para añadir otro producto o 0 para volver al menu principal");
+        option = input.nextInt();
+        input.nextLine();
+
+        if (option == 1) {
+            addProduct();
+        } else {
+            showMainMenu();
+        }
+
     }
 
 }
