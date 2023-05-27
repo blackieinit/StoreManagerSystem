@@ -21,8 +21,8 @@ public class Main {
         # Bienvenido a SMS V1.0-BETA #
         ##############################
         Menu Principal:
-        //Ventas
-        1) Realizar venta.
+        //Cajas
+        1) Menú de cajas.
         2) Estado actual de ventas y ganancias.
         //Inventario
         3) Ver inventario.
@@ -30,7 +30,7 @@ public class Main {
         5) Eliminar producto.
         6) Modificar producto.
         //Acciones
-        0) Cierre de caja.
+        0) Cierre del sistema.
         """);
         System.out.println("Seleccione una opción: ");
         option_main_menu = input.nextInt();
