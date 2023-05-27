@@ -42,28 +42,20 @@ public class Main {
                 showInventory();
             case 4:
                 addProduct();
+            case 5:
+                deleteProduct();
         }
         return;
     }
 
     private static void showInventory(){
-        ArrayList<String> current_inventory = inventory.getProducts();
-        ArrayList<Double> current_prices = inventory.getPrices();
-        StringBuilder list_inventory = new StringBuilder();
-        int current_index_price = 0;
-
-        for (String s : current_inventory) {
-            list_inventory.append(s).append(" ").append(current_prices.get(current_index_price).toString()).append("$").append("\n");
-            current_index_price++;
-        }
-        System.out.println(list_inventory);
+        System.out.println(inventory.getProducts());
         System.out.println("Pulse 0 para volver al menú pricipal");
         input.nextInt();
         showMainMenu();
     }
 
     public static void addProduct() {
-
         System.out.println("Ingrese nombre del producto: ");
         String name_product = input.nextLine();
         System.out.println("Ingrese precio del producto: ");
@@ -80,7 +72,22 @@ public class Main {
         } else {
             showMainMenu();
         }
-
     }
 
+    public static void deleteProduct() {
+        System.out.println(inventory.getProducts());
+        System.out.println("Selecciona el producto que deseas eliminar: ");
+        int option = input.nextInt();
+        String product_to_delete = inventory.deleteProduct(option);
+        input.nextLine();
+        System.out.println("Producto eliminado: " + product_to_delete);
+        System.out.println("Pulse 1 para eliminar otro producto o 0 para volver al menú principal.");
+        option = input.nextInt();
+
+        if (option == 1){
+            deleteProduct();
+        } else {
+            showMainMenu();
+        }
+    }
 }

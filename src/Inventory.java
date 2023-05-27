@@ -22,9 +22,17 @@ public class Inventory {
         }
     }
 
-    public ArrayList<String> getProducts(){
+    public StringBuilder getProducts(){
         try {
-            return this.inventory;
+            StringBuilder list_inventory = new StringBuilder();
+            int current_index_price = 0;
+
+            for (String s : this.inventory) {
+                list_inventory.append(current_index_price + 1).append(") ").append(s).append(" ").append(this.prices.get(current_index_price).toString()).append("$").append("\n");
+                current_index_price++;
+            }
+
+            return list_inventory;
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -35,6 +43,19 @@ public class Inventory {
         try {
             return this.prices;
         } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return null;
+    }
+
+    public String deleteProduct(int id_product){
+        try {
+            id_product = id_product - 1;
+            String product_to_delete = this.inventory.get(id_product);
+            this.inventory.remove(id_product);
+            this.prices.remove(id_product);
+            return product_to_delete;
+        } catch (Exception e){
             System.out.println(e.toString());
         }
         return null;
