@@ -22,6 +22,12 @@ public class Inventory {
         }
     }
 
+    public StringBuilder getProduct(int product_id){
+        product_id = product_id -1;
+        StringBuilder product = new StringBuilder();
+        return product.append(this.inventory.get(product_id)).append(" Precio: ").append(this.prices.get(product_id)).append("$");
+    }
+
     public StringBuilder getProducts(){
         try {
             StringBuilder list_inventory = new StringBuilder();
@@ -46,6 +52,23 @@ public class Inventory {
             this.inventory.remove(id_product);
             this.prices.remove(id_product);
             return product_to_delete;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public StringBuilder updateProduct(int id_product, String new_name, double new_price){
+        try{
+            id_product = id_product - 1;
+            if (!new_name.isBlank()) this.inventory.set(id_product, new_name);
+            if (new_price > 0) this.prices.set(id_product, new_price);
+            StringBuilder product_updated = new StringBuilder();
+
+            return product_updated.append(this.inventory.get(id_product))
+                    .append(" Precio: ")
+                    .append(this.prices.get(id_product));
+
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

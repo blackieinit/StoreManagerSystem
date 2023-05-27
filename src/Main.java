@@ -43,6 +43,8 @@ public class Main {
                 addProduct();
             case 5:
                 deleteProduct();
+            case 6:
+                updateProduct();
         }
     }
 
@@ -84,6 +86,48 @@ public class Main {
 
         if (option == 1){
             deleteProduct();
+        } else {
+            showMainMenu();
+        }
+    }
+    public static void updateProduct(){
+        System.out.println(inventory.getProducts());
+        System.out.println("Selecciona el producto que deseas actualizar: ");
+        int product_id = input.nextInt();
+        StringBuilder product_to_update = inventory.getProduct(product_id);
+        input.nextLine();
+        System.out.println("Pulse 1 para actualizar nombre del producto, 2 para actualizar precio, 3 para actulizar ambos datos o 0 para cancelar.");
+        int option_to_update = input.nextInt();
+        input.nextLine();
+        if (option_to_update == 0) return;
+        String new_name_product = "";
+        double new_price_product = 0;
+
+        switch (option_to_update) {
+            case 1 -> {
+                System.out.println("Ingrese el nuevo nombre para el producto: ");
+                new_name_product = input.nextLine();
+            }
+            case 2 -> {
+                System.out.println("Ingrese el nuevo precio del producto: ");
+                new_price_product = input.nextFloat();
+            }
+            case 3 -> {
+                System.out.println("Ingrese el nuevo nombre para el producto: ");
+                new_name_product = input.nextLine();
+                System.out.println("Ingrese el nuevo precio del producto: ");
+                new_price_product = input.nextFloat();
+            }
+        }
+
+        StringBuilder product_updated = inventory.updateProduct(product_id, new_name_product, new_price_product);
+
+        System.out.println("Producto: " + product_to_update + " Modificado a: " + product_updated);
+        System.out.println("Pulse 1 para actualizar otro producto o 0 para volver al menú principal.");
+        int option = input.nextInt();
+
+        if (option == 1){
+            updateProduct();
         } else {
             showMainMenu();
         }
