@@ -25,7 +25,11 @@ public class Inventory {
     public StringBuilder getProduct(int product_id){
         product_id = product_id -1;
         StringBuilder product = new StringBuilder();
-        return product.append(this.inventory.get(product_id)).append(" Precio: ").append(this.prices.get(product_id)).append("$");
+        return product
+                .append(this.inventory.get(product_id))
+                .append(" Precio: ")
+                .append(this.prices.get(product_id))
+                .append("$");
     }
 
     public StringBuilder getProducts(){
@@ -34,7 +38,14 @@ public class Inventory {
             int current_index_price = 0;
 
             for (String s : this.inventory) {
-                list_inventory.append(current_index_price + 1).append(") ").append(s).append(" ").append(this.prices.get(current_index_price).toString()).append("$").append("\n");
+                list_inventory
+                        .append(current_index_price + 1)
+                        .append(") ")
+                        .append(s)
+                        .append(" ")
+                        .append(this.prices.get(current_index_price).toString())
+                        .append("$")
+                        .append("\n");
                 current_index_price++;
             }
 
@@ -65,7 +76,8 @@ public class Inventory {
             if (new_price > 0) this.prices.set(id_product, new_price);
             StringBuilder product_updated = new StringBuilder();
 
-            return product_updated.append(this.inventory.get(id_product))
+            return product_updated
+                    .append(this.inventory.get(id_product))
                     .append(" Precio: ")
                     .append(this.prices.get(id_product));
 

@@ -1,8 +1,12 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import Cashier.Cashier;
 
 public class Main {
     private static final Scanner input = new Scanner(System.in);
     private static final Inventory inventory = new Inventory();
+
+    private static final ArrayList<Cashier> cashiers = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -22,7 +26,7 @@ public class Main {
         ##############################
         Menu Principal:
         //Cajas
-        1) Menú de cajas.
+        1) Cajas.
         2) Estado actual de ventas y ganancias.
         //Inventario
         3) Ver inventario.
@@ -37,14 +41,11 @@ public class Main {
         input.nextLine();
 
         switch (option_main_menu) {
-            case 3:
-                showInventory();
-            case 4:
-                addProduct();
-            case 5:
-                deleteProduct();
-            case 6:
-                updateProduct();
+            case 1 -> showCashiers();
+            case 3 -> showInventory();
+            case 4 -> addProduct();
+            case 5 -> deleteProduct();
+            case 6 -> updateProduct();
         }
     }
 
@@ -132,4 +133,42 @@ public class Main {
             showMainMenu();
         }
     }
+
+    private static void showCashiers(){
+        System.out.println("##########################");
+        System.out.println("#          CAJAS         #");
+        System.out.println("##########################");
+        System.out.println("Cantidad de cajas abiertas: " + cashiers.size());
+        int cashier_index = 0;
+        for (Cashier cashier : cashiers) {
+            String list_cashier = (cashier_index + 1) +
+                    ". " +
+                    "Cliente: " +
+                    (cashier.name_client.isBlank() ? "No establecido" : cashier.name_client) +
+                    (cashier.ci_client == 0 ? " No establecido" : cashier.ci_client) +
+                    " Total de venta: " +
+                    cashier.total_sell +
+                    "$" +
+                    "\n";
+            System.out.println(list_cashier);
+            cashier_index++;
+        }
+        System.out.println("Seleccione una caja, pulse 9 para abrir una caja nueva o 0 para volver al menu principal.");
+        int option = input.nextInt();
+        input.nextLine();
+
+        if (option == 9) {
+            cashiers.add(new Cashier());
+            cashiers.get(cashiers.size() - 1).new_cashier();
+        } else if (option == 0) {
+            showMainMenu();
+        } else if (option <= cashiers.size()) {
+            cashiers.get(option - 1).get_cashier();
+        } else {
+            showCashiers();
+        }
+
+        showCashiers();
+    }
+
 }
