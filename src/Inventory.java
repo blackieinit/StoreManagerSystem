@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Inventory {
-    public ArrayList<String> inventory = new ArrayList<String>();
-    public ArrayList<Double> prices = new ArrayList<Double>();
+    public ArrayList<String> inventory = new ArrayList<>();
+    public ArrayList<Double> prices = new ArrayList<>();
 
     public Inventory() {
         inventory.add("Coca-Cola 2ltrs");
@@ -18,7 +18,7 @@ public class Inventory {
             this.inventory.add(name);
             this.prices.add(price);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -34,16 +34,7 @@ public class Inventory {
 
             return list_inventory;
         } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        return null;
-    }
-
-    public ArrayList<Double> getPrices(){
-        try {
-            return this.prices;
-        } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -56,7 +47,7 @@ public class Inventory {
             this.prices.remove(id_product);
             return product_to_delete;
         } catch (Exception e){
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
         return null;
     }

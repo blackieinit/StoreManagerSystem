@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +8,7 @@ public class Main {
         try {
             showMainMenu();
         } catch (Exception e){
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -45,7 +44,6 @@ public class Main {
             case 5:
                 deleteProduct();
         }
-        return;
     }
 
     private static void showInventory(){
