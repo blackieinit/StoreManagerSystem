@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Accounting.Accounting;
 import Cashier.Cashier;
+import Inventory.Inventory;
 
 public class Main {
     private static final Scanner input = new Scanner(System.in);
     private static final Inventory inventory = new Inventory();
+    private static final Accounting accounting = new Accounting();
 
     private static final ArrayList<Cashier> cashiers = new ArrayList<>();
 
@@ -145,11 +149,11 @@ public class Main {
                     ". " +
                     "Cliente: " +
                     (cashier.name_client.isBlank() ? "No establecido" : cashier.name_client) +
+                    " " +
                     (cashier.ci_client == 0 ? " No establecido" : cashier.ci_client) +
                     " Total de venta: " +
                     cashier.total_sell +
-                    "$" +
-                    "\n";
+                    "$";
             System.out.println(list_cashier);
             cashier_index++;
         }
@@ -158,7 +162,7 @@ public class Main {
         input.nextLine();
 
         if (option == 9) {
-            cashiers.add(new Cashier());
+            cashiers.add(new Cashier(inventory, accounting));
             cashiers.get(cashiers.size() - 1).new_cashier();
         } else if (option == 0) {
             showMainMenu();

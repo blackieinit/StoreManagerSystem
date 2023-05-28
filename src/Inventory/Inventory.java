@@ -1,3 +1,5 @@
+package Inventory;
+
 import java.util.ArrayList;
 
 public class Inventory {
@@ -23,13 +25,18 @@ public class Inventory {
     }
 
     public StringBuilder getProduct(int product_id){
-        product_id = product_id -1;
+        product_id = product_id - 1;
         StringBuilder product = new StringBuilder();
         return product
                 .append(this.inventory.get(product_id))
                 .append(" Precio: ")
                 .append(this.prices.get(product_id))
                 .append("$");
+    }
+
+    public double getPrice(int product_id){
+        product_id = product_id - 1;
+        return this.prices.get(product_id);
     }
 
     public StringBuilder getProducts(){
