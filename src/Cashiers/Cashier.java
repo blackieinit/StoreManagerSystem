@@ -7,30 +7,30 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cashier {
-    public ArrayList<Integer> product_ids = new ArrayList<>();
-    public ArrayList<Double> amount_products = new ArrayList<>();
-    private String name_client;
-    private int ci_client;
-    public double total_sell_cashier = 0;
+    public ArrayList<Integer> productsIds = new ArrayList<>();
+    public ArrayList<Double> amountProducts = new ArrayList<>();
+    private final String nameClient;
+    private final int ciClient;
+    public double totalSellCashier = 0;
 
     public Cashier(String name_client, int ci_client){
-        this.name_client = name_client;
-        this.ci_client = ci_client;
+        this.nameClient = name_client;
+        this.ciClient = ci_client;
     }
 
     public double get_total(){
-        return this.total_sell_cashier;
+        return this.totalSellCashier;
     }
 
-    public double set_total(double total){
-        return this.total_sell_cashier = total;
+    public void set_total(double total){
+        this.totalSellCashier = total;
     }
 
     public String get_client_name(){
-        return this.name_client;
+        return this.nameClient;
     }
 
     public int get_client_ci(){
-        return this.ci_client;
+        return this.ciClient;
     }
 }
