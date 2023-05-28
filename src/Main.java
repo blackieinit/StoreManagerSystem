@@ -149,11 +149,11 @@ public class Main {
             String list_cashier = (cashier_index + 1) +
                     ". " +
                     "Cliente: " +
-                    (cashier.name_client.isBlank() ? "No establecido" : cashier.name_client) +
+                    (cashier.get_client_name().isBlank() ? "No establecido" : cashier.get_client_name()) +
                     " " +
-                    (cashier.ci_client == 0 ? " No establecido" : cashier.ci_client) +
+                    (cashier.get_client_ci() == 0 ? " No establecido" : cashier.get_client_ci()) +
                     " Total de venta: " +
-                    cashier.total_sell +
+                    cashier.get_total() +
                     "$";
             System.out.println(list_cashier);
             cashier_index++;
