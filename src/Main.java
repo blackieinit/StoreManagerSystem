@@ -2,15 +2,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Accounting.Accounting;
-import Cashier.Cashier;
+import Cashiers.CashierManager;
+import Cashiers.Cashier;
 import Inventory.Inventory;
 
 public class Main {
     private static final Scanner input = new Scanner(System.in);
     private static final Inventory inventory = new Inventory();
     private static final Accounting accounting = new Accounting();
+    private static final CashierManager cashier_manager = new CashierManager(inventory, accounting);
 
-    private static final ArrayList<Cashier> cashiers = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -142,9 +143,9 @@ public class Main {
         System.out.println("##########################");
         System.out.println("#          CAJAS         #");
         System.out.println("##########################");
-        System.out.println("Cantidad de cajas abiertas: " + cashiers.size());
+        System.out.println("Cantidad de cajas abiertas: " + cashier_manager.get_cashiers().size());
         int cashier_index = 0;
-        for (Cashier cashier : cashiers) {
+        for (Cashier cashier : cashier_manager.get_cashiers()) {
             String list_cashier = (cashier_index + 1) +
                     ". " +
                     "Cliente: " +
@@ -162,12 +163,11 @@ public class Main {
         input.nextLine();
 
         if (option == 9) {
-            cashiers.add(new Cashier(inventory, accounting));
-            cashiers.get(cashiers.size() - 1).new_cashier();
+            cashier_manager.create_cashier();
         } else if (option == 0) {
             showMainMenu();
-        } else if (option <= cashiers.size()) {
-            cashiers.get(option - 1).get_cashier();
+        } else if (option <= cashier_manager.get_cashiers().size()) {
+            cashier_manager.get_cashier(option - 1);
         } else {
             showCashiers();
         }

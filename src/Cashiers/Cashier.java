@@ -1,4 +1,7 @@
-package Cashier;
+package Cashiers;
+
+import Accounting.Accounting;
+import Inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -6,7 +9,8 @@ import java.util.Scanner;
 import Accounting.Accounting;
 import Inventory.Inventory;
 
-public class Cashier extends Inventory{
+
+public class Cashier {
     public ArrayList<Integer> product_ids = new ArrayList<>();
     public ArrayList<Double> amount_products = new ArrayList<>();
     public String name_client = "";
@@ -24,7 +28,6 @@ public class Cashier extends Inventory{
     private Scanner input = new Scanner(System.in);
 
     public void new_cashier(){
-
         System.out.println("##########################");
         System.out.println("#        NUEVA CAJA      #");
         System.out.println("##########################");
@@ -63,6 +66,7 @@ public class Cashier extends Inventory{
                 total_sell += product_price * amount_product;
                 index_product++;
             }
+            this.total_sell = total_sell;
         } else {
             System.out.println("No hay productos en la venta");
         }
@@ -76,7 +80,7 @@ public class Cashier extends Inventory{
         input.nextLine();
         switch (option) {
             case 1 -> this.add_product_to_sell();
-            case 2 -> this.get_cashier();
+            case 2 -> this.charge_customer();
         }
     }
 
@@ -93,4 +97,25 @@ public class Cashier extends Inventory{
         this.get_cashier();
     }
 
+    private void charge_customer(){
+        System.out.println("Total: " + this.total_sell + "$");
+        System.out.println("Ingrese la cantidad de dinero del cliente: ");
+        double amount_money = input.nextDouble();
+        input.nextLine();
+
+        if (amount_money >= this.total_sell){
+            System.out.println("FACTURA");
+        } else {
+            System.out.println("Dinero ingresado no es suficiente, pulse 1 para modificar la cantidad de dinero o 0 para cancelar la venta");
+            int option = input.nextInt();
+            switch (option){
+                case 1 -> this.charge_customer();
+                case 2 -> this.cancel_sell();
+            }
+        }
+    }
+
+    private void cancel_sell(){
+        System.out.println("Venta cancelada");
+    }
 }
