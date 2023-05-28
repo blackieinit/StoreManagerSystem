@@ -44,11 +44,11 @@ public class Inventory {
             StringBuilder list_inventory = new StringBuilder();
             int current_index_price = 0;
 
-            for (String s : this.inventory) {
+            for (String item : this.inventory) {
                 list_inventory
                         .append(current_index_price + 1)
                         .append(") ")
-                        .append(s)
+                        .append(item)
                         .append(" ")
                         .append(this.prices.get(current_index_price).toString())
                         .append("$")
