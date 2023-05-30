@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cashier {
-    public ArrayList<Integer> productsIds = new ArrayList<>();
-    public ArrayList<Double> amountProducts = new ArrayList<>();
+    private ArrayList<Integer> productsIds = new ArrayList<>();
+    private ArrayList<Double> amountProducts = new ArrayList<>();
     private final String nameClient;
     private final int ciClient;
     public double totalSellCashier = 0;
@@ -32,5 +32,17 @@ public class Cashier {
 
     public int get_client_ci(){
         return this.ciClient;
+    }
+
+    public ArrayList<Double> getAmountProducts(){
+        return this.amountProducts;
+    }
+
+    public ArrayList<Integer> getProductsIds(){
+        return this.productsIds;
+    }
+
+    public void addProduct(int product_id){
+        this.productsIds.add(product_id);
     }
 }

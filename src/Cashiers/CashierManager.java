@@ -41,12 +41,12 @@ public class CashierManager {
         System.out.println("__________________________");
         System.out.println("  PRODUCTOS EN LA VENTA   ");
         System.out.println("__________________________");
-        if (this.currentCashier.productsIds.size() > 0) {
+        if (this.currentCashier.getProductsIds().size() > 0) {
             int index_product = 0;
-            for(int product_id : this.currentCashier.productsIds){
+            for(int product_id : this.currentCashier.getProductsIds()){
                 StringBuilder product = this.inventory.getProduct(product_id);
                 double product_price = this.inventory.getPrice(product_id);
-                double amount_product = this.currentCashier.amountProducts.get(index_product);
+                double amount_product = this.currentCashier.getAmountProducts().get(index_product);
                 System.out.println(product
                         .append(" X ")
                         .append(amount_product)
@@ -61,7 +61,7 @@ public class CashierManager {
         }
         this.currentCashier.set_total(total);
         System.out.println("__________________________");
-        System.out.println("Total productos: " + this.currentCashier.productsIds.size());
+        System.out.println("Total productos: " + this.currentCashier.getProductsIds().size());
         System.out.println("Subtotal: " + total* 0.16 + "$");
         System.out.println("Total: " + total + "$");
         System.out.println("__________________________");
@@ -70,7 +70,7 @@ public class CashierManager {
         input.nextLine();
         switch (option) {
             case 1 -> this.add_product_to_sell(cashier_id);
-            case 2 -> this.charge_customer();
+            case 2 -> this.charge_customer(cashier_id);
         }
     }
 
@@ -79,34 +79,58 @@ public class CashierManager {
         System.out.println("Selecciona un producto de la lista o pulsa s para volver al resumen de venta");
         int option = this.input.nextInt();
         input.nextLine();
-        currentCashier.productsIds.add(option);
+        currentCashier.getProductsIds().add(option);
         System.out.println("Selecciona la cantidad a comprar:");
         double amount = this.input.nextDouble();
         input.nextLine();
-        currentCashier.amountProducts.add(amount);
+        currentCashier.getAmountProducts().add(amount);
         get_cashier(cashier_id);
     }
 
-    private void charge_customer(){
+    private void charge_customer(int cashier_id){
         System.out.println("Total: " + currentCashier.get_total() + "$");
         System.out.println("Ingrese la cantidad de dinero del cliente: ");
         double amount_money = input.nextDouble();
         input.nextLine();
 
         if (amount_money >= currentCashier.get_total()){
-            System.out.println("FACTURA");
+            this.printInvoice();
             this.accounting.setTotalProfit(currentCashier.get_total() * 0.30);
             this.accounting.setAmountSales();
             this.accounting.setTotalSales(currentCashier.get_total());
-
+            this.cashiers.remove(cashier_id);
         } else {
             System.out.println("Dinero ingresado no es suficiente, pulse 1 para modificar la cantidad de dinero o 0 para cancelar la venta");
             int option = input.nextInt();
             switch (option){
-                case 1 -> this.charge_customer();
+                case 1 -> this.charge_customer(cashier_id);
                 case 2 -> this.cancel_sell();
             }
         }
+    }
+
+    private void printInvoice(){
+        StringBuilder invoice = new StringBuilder();
+        invoice.append("     BODEGON EL KIRITO PARRA C.A     \n")
+                .append("Av 2 antogua calle comercio edif LE\n")
+                .append("Piso 1 Oficina 2 - Higuerote Miranda\n")
+                .append("____________________________________\n")
+                .append("Información del cliente\n")
+                .append("Nombre ")
+                .append(this.currentCashier.get_client_name())
+                .append("\nRIF/CI:")
+                .append(this.currentCashier.get_client_ci())
+                .append("\n              FACTURA                \n")
+                .append("_____________________________________\n");
+        ArrayList<Double> amountProducts = this.currentCashier.getAmountProducts();
+        for (int product_id : this.currentCashier.getProductsIds()){
+            invoice.append(this.inventory.getProduct(product_id))
+                    .append("  ")
+                    .append(this.currentCashier.getAmountProducts());
+        }
+
+        System.out.println(invoice);
+
     }
 
     private void cancel_sell(){

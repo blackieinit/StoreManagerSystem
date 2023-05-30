@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import Accounting.Accounting;
@@ -11,8 +10,6 @@ public class Main {
     private static final Inventory inventory = new Inventory();
     private static final Accounting accounting = new Accounting();
     private static final CashierManager cashierManager = new CashierManager(inventory, accounting);
-
-
     public static void main(String[] args) {
         try {
             showMainMenu();
@@ -47,6 +44,7 @@ public class Main {
 
         switch (option_main_menu) {
             case 1 -> showCashiers();
+            case 2 -> showResumeDay();
             case 3 -> showInventory();
             case 4 -> addProduct();
             case 5 -> deleteProduct();
@@ -173,6 +171,24 @@ public class Main {
         }
 
         showCashiers();
+    }
+
+    private static void showResumeDay(){
+        StringBuilder resume = new StringBuilder();
+
+        System.out.println(
+                resume.append("###########################")
+                        .append("\n#   Resumen del día       #")
+                        .append("\n###########################")
+                        .append("\nNúmero de clientes: ")
+                        .append(accounting.getAmountSales())
+                        .append("\nTotal de venta: ")
+                        .append(accounting.getTotalSales())
+                        .append("\nGanancia total: ")
+                        .append(accounting.getTotalProfit()));
+        System.out.println("Pulse cualquier número para volver al menú pricipal");
+        input.nextInt();
+        showMainMenu();
     }
 
 }
