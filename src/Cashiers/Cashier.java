@@ -1,12 +1,9 @@
 package Cashiers;
 
 import Accounting.Accounting;
-import Inventory.Inventory;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
-public class Cashier {
+public class Cashier extends Accounting {
     private ArrayList<Integer> productsIds = new ArrayList<>();
     private ArrayList<Double> amountProducts = new ArrayList<>();
     private final String nameClient;

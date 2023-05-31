@@ -6,15 +6,13 @@ import Inventory.Inventory;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CashierManager {
+public class CashierManager extends Inventory{
     private final Scanner input = new Scanner(System.in);
     public final ArrayList<Cashier> cashiers = new ArrayList<>();
-    private final Inventory inventory;
     private final Accounting accounting;
     private Cashier currentCashier = null;
 
-    public CashierManager(Inventory inventory, Accounting accounting){
-        this.inventory = inventory;
+    public CashierManager(Accounting accounting){
         this.accounting = accounting;
     }
 
@@ -44,8 +42,8 @@ public class CashierManager {
         if (this.currentCashier.getProductsIds().size() > 0) {
             int index_product = 0;
             for(int product_id : this.currentCashier.getProductsIds()){
-                StringBuilder product = this.inventory.getProduct(product_id);
-                double product_price = this.inventory.getPrice(product_id);
+                StringBuilder product = getProduct(product_id);
+                double product_price = getPrice(product_id);
                 double amount_product = this.currentCashier.getAmountProducts().get(index_product);
                 System.out.println(product
                         .append(" X ")
@@ -75,7 +73,7 @@ public class CashierManager {
     }
 
     private void add_product_to_sell(int cashier_id){
-        System.out.println(this.inventory.getProducts());
+        System.out.println(getProducts());
         System.out.println("Selecciona un producto de la lista o pulsa s para volver al resumen de venta");
         int option = this.input.nextInt();
         input.nextLine();
@@ -124,7 +122,7 @@ public class CashierManager {
                 .append("_____________________________________\n");
         ArrayList<Double> amountProducts = this.currentCashier.getAmountProducts();
         for (int product_id : this.currentCashier.getProductsIds()){
-            invoice.append(this.inventory.getProduct(product_id))
+            invoice.append(getProduct(product_id))
                     .append("  ")
                     .append(this.currentCashier.getAmountProducts());
         }
