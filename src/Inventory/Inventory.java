@@ -25,7 +25,6 @@ public class Inventory {
     }
 
     public StringBuilder getProduct(int product_id){
-        product_id = product_id - 1;
         StringBuilder product = new StringBuilder();
         return product
                 .append(this.inventory.get(product_id))
@@ -35,7 +34,6 @@ public class Inventory {
     }
 
     public double getPrice(int product_id){
-        product_id = product_id - 1;
         return this.prices.get(product_id);
     }
 

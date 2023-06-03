@@ -31,12 +31,21 @@ public class Cashier extends Accounting {
         return this.ciClient;
     }
 
-    public ArrayList<Double> getAmountProducts(){
-        return this.amountProducts;
+    public Double getAmountProduct(int product_id){
+        return this.amountProducts.get(product_id);
+    }
+
+    public void setAmountProduct(double amount) {
+        this.amountProducts.add(amount);
     }
 
     public ArrayList<Integer> getProductsIds(){
         return this.productsIds;
+    }
+
+    public double getTotalAmountProduct(int product_id){
+        System.out.println("dAsdasd");
+        return this.productsIds.get(product_id) * this.amountProducts.get(product_id);
     }
 
     public void addProduct(int product_id){
