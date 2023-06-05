@@ -9,7 +9,7 @@ public class Main {
     private static final Scanner input = new Scanner(System.in);
     private static final Inventory inventory = new Inventory();
     private static final Accounting accounting = new Accounting();
-    private static final CashierManager cashierManager = new CashierManager(accounting);
+    private static final CashierManager cashierManager = new CashierManager(accounting, inventory);
     public static void main(String[] args) {
         try {
             showMainMenu();

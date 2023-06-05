@@ -9,11 +9,13 @@ import java.util.Scanner;
 public class CashierManager extends Inventory{
     private final Scanner input = new Scanner(System.in);
     public final ArrayList<Cashier> cashiers = new ArrayList<>();
-    private final Accounting accounting;
+    private Accounting accounting;
+    private final Inventory inventory;
     private Cashier currentCashier = null;
 
-    public CashierManager(Accounting accounting){
+    public CashierManager(Accounting accounting, Inventory inventory){
         this.accounting = accounting;
+        this.inventory = inventory;
     }
 
     public void create_cashier(){
@@ -24,7 +26,7 @@ public class CashierManager extends Inventory{
         String name_client = input.nextLine();
         System.out.println("Ingrese la cédula de identidad del cliente: ");
         int ci_client = input.nextInt();
-        cashiers.add(new Cashier(name_client, ci_client));
+        cashiers.add(new Cashier(name_client, ci_client, inventory, accounting));
         this.get_cashier(this.cashiers.size() - 1);
     }
 
@@ -77,7 +79,7 @@ public class CashierManager extends Inventory{
         System.out.println("Selecciona un producto de la lista o pulsa s para volver al resumen de venta");
         int option = this.input.nextInt();
         input.nextLine();
-        currentCashier.getProductsIds().add(option);
+        currentCashier.getProductsIds().add(option - 1);
         System.out.println("Selecciona la cantidad a comprar:");
         double amount = this.input.nextDouble();
         input.nextLine();
@@ -88,14 +90,12 @@ public class CashierManager extends Inventory{
     private void charge_customer(int cashier_id){
         System.out.println("Total: " + currentCashier.get_total() + "$");
         System.out.println("Ingrese la cantidad de dinero del cliente: ");
-        double amount_money = input.nextDouble();
+        double amountMoney = input.nextDouble();
+        this.currentCashier.setAmountMoneyClient(amountMoney);
         input.nextLine();
-
-        if (amount_money >= currentCashier.get_total()){
-            this.printInvoice();
-            this.accounting.setTotalProfit(currentCashier.get_total() * 0.30);
-            this.accounting.setAmountSales();
-            this.accounting.setTotalSales(currentCashier.get_total());
+        if (amountMoney >= currentCashier.get_total()){
+            this.currentCashier.payCashier();
+            this.currentCashier.printInvoice();
             this.cashiers.remove(cashier_id);
         } else {
             System.out.println("Dinero ingresado no es suficiente, pulse 1 para modificar la cantidad de dinero o 0 para cancelar la venta");
@@ -107,32 +107,6 @@ public class CashierManager extends Inventory{
         }
     }
 
-    private void printInvoice(){
-        StringBuilder invoice = new StringBuilder();
-
-        invoice.append("     BODEGON EL KIRITO PARRA C.A     \n")
-                .append("Av 2 antigua calle comercio edif LE\n")
-                .append("Piso 1 Oficina 2 - Higuerote Miranda\n")
-                .append("____________________________________\n")
-                .append("Información del cliente\n")
-                .append("Nombre ")
-                .append(this.currentCashier.get_client_name())
-                .append("\nRIF/CI:")
-                .append(this.currentCashier.get_client_ci())
-                .append("\n              FACTURA                \n")
-                .append("_____________________________________\n");
-        for (int product_id : this.currentCashier.getProductsIds()){
-            invoice.append(getProduct(product_id))
-                    .append(" X ")
-                    .append(this.currentCashier.getAmountProduct(product_id))
-                    .append("   ")
-                    .append(this.currentCashier.getTotalAmountProduct(product_id))
-                    .append("\n");
-        }
-
-        System.out.println(invoice);
-
-    }
 
     private void cancel_sell(){
         System.out.println("Venta cancelada");

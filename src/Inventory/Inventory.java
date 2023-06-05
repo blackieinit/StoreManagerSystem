@@ -25,6 +25,7 @@ public class Inventory {
     }
 
     public StringBuilder getProduct(int product_id){
+        System.out.println("Get product");
         StringBuilder product = new StringBuilder();
         return product
                 .append(this.inventory.get(product_id))
