@@ -3,7 +3,11 @@ package Cashiers;
 import Accounting.Accounting;
 import Inventory.Inventory;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 public class Cashier {
     private ArrayList<Integer> productsIds = new ArrayList<>();
     private ArrayList<Double> amountProducts = new ArrayList<>();
@@ -90,7 +94,7 @@ public class Cashier {
         invoice.append("     BODEGON EL KIRITO PARRA C.A     \n")
                 .append("Av 2 antigua calle comercio edif LE\n")
                 .append("Piso 1 Oficina 2 - Higuerote Miranda\n")
-                .append("____________________________________\n")
+                .append("_____________________________________\n")
                 .append("Información del cliente\n")
                 .append("Nombre ")
                 .append(this.get_client_name())
@@ -108,18 +112,24 @@ public class Cashier {
         }
 
         invoice.append("____________________________________\n");
-        invoice.append("Subtotal: ").append(this.getSubtotal());
-        invoice.append("IVA: ").append(this.getIva());
-        invoice.append("Total: ").append(this.getTotalSellCashier());
-        invoice.append("Pago: ");
-        invoice.append("Vuelto: ");
-        invoice.append("____________________________________\n");
-        invoice.append("GRACIAS POR SU COMPRA");
-        invoice.append("Fecha: ");
-        invoice.append("____________________________________\n");
+        invoice.append("Subtotal: ").append(String.format("%.2f", this.getSubtotal())).append("$");
+        invoice.append("\nIVA: ").append(String.format("%.2f", this.getIva())).append("$");
+        invoice.append("\nTotal: ").append(String.format("%.2f", this.getTotalSellCashier())).append("$");
+        invoice.append("\nPago: ").append(String.format("%.2f", this.amountMoneyClient)).append("$");
+        invoice.append("\nVuelto: ").append(String.format("%.2f", this.amountMoneyClient - this.totalSellCashier)).append("$");
+        invoice.append("\n____________________________________\n");
+        invoice.append("\nGRACIAS POR SU COMPRA");
+        invoice.append("\nFecha: ").append(this.getDate());
+        invoice.append("\n____________________________________\n");
 
 
         System.out.println(invoice);
 
+    }
+
+
+    private String getDate(){
+        DateFormat dateFormat = new SimpleDateFormat("d/MM/yyyy - HH:mm:ss");
+        return dateFormat.format(new Date());
     }
 }

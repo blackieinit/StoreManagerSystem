@@ -52,6 +52,7 @@ public class CashierManager extends Inventory{
                         .append(amount_product)
                         .append(" Total: ")
                         .append(product_price * amount_product)
+                        .append("$")
                 );
                 total += product_price * amount_product;
                 index_product++;
@@ -62,8 +63,8 @@ public class CashierManager extends Inventory{
         this.currentCashier.set_total(total);
         System.out.println("__________________________");
         System.out.println("Total productos: " + this.currentCashier.getProductsIds().size());
-        System.out.println("Subtotal: " + total* 0.16 + "$");
-        System.out.println("Total: " + total + "$");
+        System.out.println("Subtotal: " + String.format("%.2f", total* 0.16) + "$");
+        System.out.println("Total: " + String.format("%.2f", total) + "$");
         System.out.println("__________________________");
         System.out.println("Ingrese 1 para añadir nuevo producto, 2 para finalizar venta, 0 para pausar la venta y volver a la selección de cajas.");
         int option = input.nextInt();
